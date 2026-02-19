@@ -37,7 +37,71 @@
 
   <body>
     <header>
-      <h1 class="text-4xl text-blue-600">SnapBuy</h1>
+      <!--Navbar design-->
+      <div class="navbar bg-base-100 shadow-sm lg:px-60">
+        <div class="navbar-start">
+          <div class="dropdown">
+            <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M4 6h16M4 12h8m-8 6h16"
+                />
+              </svg>
+            </div>
+            <ul
+              tabindex="-1"
+              class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
+            >
+              <li><a>Home</a></li>
+              <li><a>Products</a></li>
+              <li><a>About</a></li>
+              <li><a>Contact</a></li>
+            </ul>
+          </div>
+          <a class="btn btn-ghost text-xl text-blue-700">SnapBuy</a>
+        </div>
+        <div class="navbar-center hidden lg:flex">
+          <ul class="menu menu-horizontal px-1">
+            <li><a>Home</a></li>
+            <li><a>Products</a></li>
+            <li><a>About</a></li>
+            <li><a>Contact</a></li>
+          </ul>
+        </div>
+        <div class="navbar-end pr-5 lg:pr-0">
+          <i class="fa-brands fa-opencart"></i>
+        </div>
+      </div>
+      <!--Banner design-->
+      <div
+        class="hero min-h-screen lg:min-h-[calc(100vh-200px)]"
+        style="background-image: url('./assets/banner-image.png')"
+      >
+        <div
+          class="hero-overlay bg-gradient-to-r from-slate-900 via-slate-600/30 to-transparent"
+        ></div>
+        <div class="text-neutral-content w-full">
+          <div class="max-w-full text-start mx-5 lg:mx-60">
+            <h1 class="mb-5 text-3xl lg:text-5xl font-bold">
+              Best Collection For You
+            </h1>
+            <p class="w-full lg:w-1/2 mb-5">
+              Explore our curated collection of fashion, accessories, and
+              essentials designed to match your lifestyle and personality.
+            </p>
+            <button class="btn btn-primary">Shop Now</button>
+          </div>
+        </div>
+      </div>
     </header>
   </body>
 </html>
