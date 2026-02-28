@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
     loadProducts();
+    setActiveNav();
 });
 
 const loadProducts = async () => {
@@ -74,4 +75,15 @@ const getAllProducts = ([...products]) => {
     });
 
 }
+
+const setActiveNav = () => {
+    const current = window.location.pathname.split("/").pop();
+    const links = document.querySelectorAll(".nav-link");
+
+    links.forEach(link => {
+        if (link.getAttribute("href") === current) {
+            link.classList.add("text-blue-600", "font-bold");
+        }
+    });
+};
 
