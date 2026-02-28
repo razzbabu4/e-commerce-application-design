@@ -71,8 +71,10 @@
         </div>
         <div class="navbar-center hidden lg:flex">
           <ul class="menu menu-horizontal px-1">
-            <li><a>Home</a></li>
-            <li><a>Products</a></li>
+            <li>
+              <a href="index.html" class="bg-indigo-600 text-white">Home</a>
+            </li>
+            <li><a href="#">Products</a></li>
             <li><a>About</a></li>
             <li><a>Contact</a></li>
           </ul>
@@ -82,6 +84,12 @@
         </div>
       </div>
     </header>
+    <div
+      id="loader"
+      class="fixed inset-0 flex items-center justify-center bg-white z-50"
+    >
+      <span class="loading loading-spinner loading-lg text-blue-600"></span>
+    </div>
     <main>
       <!--Banner design-->
       <div
@@ -192,142 +200,66 @@
           <h2 class="text-3xl lg:text-4xl font-bold">Trending Now</h2>
         </div>
 
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mx-6 lg:mx-60">
-          <!-- Card 1 -->
-          <div class="card bg-base-100 w-full shadow-sm">
-            <figure>
-              <img
-                src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-                alt="Shoes"
-              />
-            </figure>
-            <div class="card-body">
-              <div class="flex justify-between items-center">
-                <div class="badge badge-soft badge-primary">Men's Clothing</div>
-                <div class="flex items-center gap-1">
-                  <i
-                    class="fa-solid fa-star"
-                    style="color: rgb(255, 212, 59)"
-                  ></i>
-                  <span>3.9</span>
-                  <span>(102)</span>
+        <div
+          id="trendingContainer"
+          class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mx-6 lg:mx-60"
+        >
+          <template id="productCard">
+            <!-- Card 1 -->
+            <div class="card bg-base-100 w-full shadow-sm">
+              <figure class="p-5">
+                <img
+                  class="productImage h-56"
+                  src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
+                  alt="Shoes"
+                />
+              </figure>
+              <div class="card-body">
+                <div class="flex justify-between items-center">
+                  <div
+                    class="productCategory badge badge-soft badge-primary capitalize"
+                  >
+                    Men's Clothing
+                  </div>
+                  <div class="flex items-center gap-1">
+                    <i
+                      class="fa-solid fa-star"
+                      style="color: rgb(255, 212, 59)"
+                    ></i>
+                    <span class="productRating">3.9</span>
+                    <span class="productRatingCount">(102)</span>
+                  </div>
+                </div>
+                <div class="my-4">
+                  <h2 class="productTitle text-xl line-clamp-1 mb-2">
+                    A card component has a figure, a body part, and inside body
+                    there are title and actions parts
+                  </h2>
+                  <h2 class="productPrice text-xl font-bold">$120.50</h2>
+                </div>
+                <div class="grid grid-cols-2 gap-2">
+                  <button
+                    class="btn w-full flex justify-center items-center gap-2 text-slate-600"
+                  >
+                    <i class="fa-regular fa-eye"></i>
+                    <span> Details </span>
+                  </button>
+                  <button
+                    class="btn btn-primary w-full flex justify-center items-center gap-2"
+                  >
+                    <i class="fa-brands fa-opencart"></i><span>Add</span>
+                  </button>
                 </div>
               </div>
-              <div class="my-4">
-                <h2 class="text-xl line-clamp-1 mb-2">
-                  A card component has a figure, a body part, and inside body
-                  there are title and actions parts
-                </h2>
-                <h2 class="text-xl font-bold">$120.50</h2>
-              </div>
-              <div class="grid grid-cols-2 gap-2">
-                <button
-                  class="btn w-full flex justify-center items-center gap-2 text-slate-600"
-                >
-                  <i class="fa-regular fa-eye"></i>
-                  <span> Details </span>
-                </button>
-                <button
-                  class="btn btn-primary w-full flex justify-center items-center gap-2"
-                >
-                  <i class="fa-brands fa-opencart"></i><span>Add</span>
-                </button>
-              </div>
             </div>
-          </div>
-
-          <!-- Card 2 -->
-          <div class="card bg-base-100 w-full shadow-sm">
-            <figure>
-              <img
-                src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-                alt="Shoes"
-              />
-            </figure>
-            <div class="card-body">
-              <div class="flex justify-between items-center">
-                <div class="badge badge-soft badge-primary">Men's Clothing</div>
-                <div class="flex items-center gap-1">
-                  <i
-                    class="fa-solid fa-star"
-                    style="color: rgb(255, 212, 59)"
-                  ></i>
-                  <span>3.9</span>
-                  <span>(102)</span>
-                </div>
-              </div>
-              <div class="my-4">
-                <h2 class="text-xl line-clamp-1 mb-2">
-                  A card component has a figure, a body part, and inside body
-                  there are title and actions parts
-                </h2>
-                <h2 class="text-xl font-bold">$120.50</h2>
-              </div>
-              <div class="grid grid-cols-2 gap-2">
-                <button
-                  class="btn w-full flex justify-center items-center gap-2 text-slate-600"
-                >
-                  <i class="fa-regular fa-eye"></i>
-                  <span> Details </span>
-                </button>
-                <button
-                  class="btn btn-primary w-full flex justify-center items-center gap-2"
-                >
-                  <i class="fa-brands fa-opencart"></i><span>Add</span>
-                </button>
-              </div>
-            </div>
-          </div>
-
-          <!-- Card 3 -->
-          <div class="card bg-base-100 w-full shadow-sm">
-            <figure>
-              <img
-                src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-                alt="Shoes"
-              />
-            </figure>
-            <div class="card-body">
-              <div class="flex justify-between items-center">
-                <div class="badge badge-soft badge-primary">Men's Clothing</div>
-                <div class="flex items-center gap-1">
-                  <i
-                    class="fa-solid fa-star"
-                    style="color: rgb(255, 212, 59)"
-                  ></i>
-                  <span>3.9</span>
-                  <span>(102)</span>
-                </div>
-              </div>
-              <div class="my-4">
-                <h2 class="text-xl line-clamp-1 mb-2">
-                  A card component has a figure, a body part, and inside body
-                  there are title and actions parts
-                </h2>
-                <h2 class="text-xl font-bold">$120.50</h2>
-              </div>
-              <div class="grid grid-cols-2 gap-2">
-                <button
-                  class="btn w-full flex justify-center items-center gap-2 text-slate-600"
-                >
-                  <i class="fa-regular fa-eye"></i>
-                  <span> Details </span>
-                </button>
-                <button
-                  class="btn btn-primary w-full flex justify-center items-center gap-2"
-                >
-                  <i class="fa-brands fa-opencart"></i><span>Add</span>
-                </button>
-              </div>
-            </div>
-          </div>
+          </template>
         </div>
       </section>
     </main>
     <footer class="bg-slate-950 text-slate-500 px-5">
       <!--Footer one-->
       <footer class="footer sm:footer-horizontal py-10 lg:px-60">
-        <aside>
+        <aside class="grid-flow-row-dense items-center">
           <h3 class="text-xl text-blue-800 font-bold">SnapBuy</h3>
           <p class="text-md text-gray-600">
             SnapBuy brings you the best products at unbeatable prices. Shop
@@ -364,7 +296,9 @@
       </footer>
       <div class="border-t border-slate-600 lg:mx-60"></div>
       <!--Footer Two-->
-      <footer class="footer flex flex-col-reverse sm:flex-row py-10 lg:px-60">
+      <footer
+        class="footer flex flex-col-reverse lg:justify-between sm:flex-row py-10 lg:px-60"
+      >
         <aside class="grid-flow-col items-center">
           <p>Copyright © 2026 SnapBuy, .Inc - All right reserved</p>
         </aside>
@@ -413,5 +347,6 @@
         </nav>
       </footer>
     </footer>
+    <script src="./scripts/index.js" defer></script>
   </body>
 </html>
