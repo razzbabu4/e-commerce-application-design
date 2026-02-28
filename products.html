@@ -34,7 +34,6 @@
     <!--Style Sheet-->
     <link rel="stylesheet" href="/style/style.css" />
   </head>
-
   <body>
     <header>
       <!--Navbar design-->
@@ -72,9 +71,9 @@
         <div class="navbar-center hidden lg:flex">
           <ul class="menu menu-horizontal px-1">
             <li>
-              <a href="index.html" class="nav-link">Home</a>
+              <a href="/index.html" class="nav-link">Home</a>
             </li>
-            <li><a href="/products.html" class="navlink">Products</a></li>
+            <li><a href="products.html" class="nav-link">Products</a></li>
             <li><a>About</a></li>
             <li><a>Contact</a></li>
           </ul>
@@ -84,130 +83,55 @@
         </div>
       </div>
     </header>
-    <!-- <div
-      id="loader"
-      class="fixed inset-0 flex items-center justify-center bg-white z-50"
-    >
-      <span class="loading loading-spinner loading-lg text-blue-600"></span>
-    </div> -->
     <!--Main content start from here-->
     <main>
-      <!--Banner design-->
-      <div
-        class="hero min-h-screen lg:min-h-[calc(100vh-200px)]"
-        style="background-image: url('./assets/banner-image.png')"
-      >
-        <div
-          class="hero-overlay bg-gradient-to-r from-slate-900 via-slate-600/30 to-transparent"
-        ></div>
-        <div class="text-neutral-content w-full">
-          <div class="max-w-full text-start mx-5 lg:mx-60">
-            <h1 class="mb-5 text-3xl lg:text-5xl font-bold">
-              Best Collection For You
-            </h1>
-            <p class="w-full lg:w-1/2 mb-5">
-              Explore our curated collection of fashion, accessories, and
-              essentials designed to match your lifestyle and personality.
-            </p>
-            <button class="btn btn-primary">Shop Now</button>
-          </div>
-        </div>
-      </div>
-
-      <!--Why choose us-->
-      <section class="py-16 bg-slate-100">
-        <div class="text-center mb-12">
-          <h2 class="text-3xl lg:text-4xl font-bold">Why Choose Us</h2>
-          <p class="text-slate-600 mt-3">
-            We provide the best shopping experience with quality service.
-          </p>
-        </div>
-
-        <div
-          class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 px-6 lg:px-20 lg:mx-40"
-        >
-          <!-- Card 1 -->
-          <div class="card bg-white shadow-xl p-6 relative">
-            <div
-              class="absolute -top-5 left-5 bg-slate-100 p-3 rounded-md shadow-md border-4 border-white"
-            >
-              <!-- Icon -->
-              <i
-                class="fa-regular fa-truck fa-xl"
-                style="color: rgb(89, 89, 220)"
-              ></i>
-            </div>
-            <h3 class="text-xl font-semibold mt-8 mb-3">Fast Delivery</h3>
-            <p class="text-slate-600">
-              Get your products delivered quickly and safely to your doorstep.
-            </p>
-          </div>
-
-          <!-- Card 2 -->
-          <div class="card bg-white shadow-xl p-6 relative">
-            <div
-              class="absolute -top-5 left-5 bg-slate-100 p-3 rounded-md shadow-md border-4 border-white"
-            >
-              <!-- Icon -->
-              <i
-                class="fa-solid fa-fingerprint fa-xl"
-                style="color: rgb(89, 89, 220)"
-              ></i>
-            </div>
-            <h3 class="text-xl font-semibold mt-8 mb-3">Secure Payment</h3>
-            <p class="text-slate-600">
-              100% secure payment methods with trusted encryption.
-            </p>
-          </div>
-
-          <!-- Card 3 -->
-          <div class="card bg-white shadow-xl p-6 relative">
-            <div
-              class="absolute -top-5 left-5 bg-slate-100 p-3 rounded-md shadow-md border-4 border-white"
-            >
-              <!-- Icon -->
-              <i
-                class="fa-regular fa-star fa-xl"
-                style="color: rgb(89, 89, 220)"
-              ></i>
-            </div>
-            <h3 class="text-xl font-semibold mt-8 mb-3">Quality Products</h3>
-            <p class="text-slate-600">
-              Carefully selected premium quality items just for you.
-            </p>
-          </div>
-          <!-- Card 4 -->
-          <div class="card bg-white shadow-xl p-6 relative">
-            <div
-              class="absolute -top-5 left-5 bg-slate-100 p-3 rounded-md shadow-md border-4 border-white"
-            >
-              <!-- Icon -->
-              <i
-                class="fa-solid fa-arrows-rotate fa-xl"
-                style="color: rgb(89, 89, 220)"
-              ></i>
-            </div>
-            <h3 class="text-xl font-semibold mt-8 mb-3">Easy Returns</h3>
-            <p class="text-slate-600">
-              Hassle-free return policy with quick refunds and exchanges.
-            </p>
-          </div>
-        </div>
-      </section>
-
       <!--Trending Section-->
       <section class="py-16">
-        <div class="text-start mb-12 mx-6 lg:mx-60">
-          <h2 class="text-3xl lg:text-4xl font-bold">Trending Now</h2>
+        <div class="text-center mb-12 mx-6 lg:mx-60">
+          <h2 class="text-3xl lg:text-4xl font-bold">Our Products</h2>
         </div>
 
+        <!-- Categories button -->
+        <div class="filter flex justify-center gap-5 pb-8">
+          <input
+            class="btn filter-reset"
+            type="radio"
+            name="metaframeworks"
+            aria-label="All"
+          />
+          <input
+            class="btn"
+            type="radio"
+            name="metaframeworks"
+            aria-label="Electronics"
+          />
+          <input
+            class="btn"
+            type="radio"
+            name="metaframeworks"
+            aria-label="Jewelery"
+          />
+          <input
+            class="btn"
+            type="radio"
+            name="metaframeworks"
+            aria-label="Men's Clothing"
+          />
+          <input
+            class="btn"
+            type="radio"
+            name="metaframeworks"
+            aria-label="Women's Clothing"
+          />
+        </div>
+        <!--All Products section -->
         <div
-          id="trendingContainer"
-          class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mx-6 lg:mx-60"
+          id="ourProductContainer"
+          class="grid md:grid-cols-3 lg:grid-cols-4 gap-4 mx-6 lg:mx-60"
         >
-          <template id="productCard">
+          <template id="allProductCard">
             <!-- Card 1 -->
-            <div class="card bg-base-100 w-full shadow-sm">
+            <div class="card bg-base-300 w-full shadow-lg">
               <figure class="p-5">
                 <img
                   class="productImage h-56"
@@ -215,10 +139,10 @@
                   alt="Shoes"
                 />
               </figure>
-              <div class="card-body">
+              <div class="card-body bg-white">
                 <div class="flex justify-between items-center">
                   <div
-                    class="productCategory badge badge-soft badge-primary capitalize"
+                    class="productCategory badge badge-soft badge-primary capitalize line-clamp-1"
                   >
                     Men's Clothing
                   </div>
@@ -348,6 +272,6 @@
         </nav>
       </footer>
     </footer>
-    <script src="./scripts/index.js" defer></script>
+    <script src="./scripts/index.js"></script>
   </body>
 </html>
