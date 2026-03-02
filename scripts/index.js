@@ -1,11 +1,7 @@
-document.addEventListener("DOMContentLoaded", () => {
-    loadProducts();
-    setActiveNav();
-});
-
 const loadProducts = async () => {
-    const url = "https://fakestoreapi.com/products";
     const loader = document.getElementById("loader");
+
+    const url = "https://fakestoreapi.com/products";
     try {
         loader?.classList.remove("hidden");
         // loading all data
@@ -15,10 +11,6 @@ const loadProducts = async () => {
         // Load top three product based on rating
         if (document.getElementById("productCard")) {
             topProducts(result);
-        }
-        // Load all products
-        if (document.getElementById("allProductCard")) {
-            getAllProducts(result);
         }
         // Show a loading spinner when data is fetching
         if (loader) {
@@ -58,11 +50,28 @@ const topProducts = (products) => {
 
 }
 
-const getAllProducts = ([...products]) => {
-    const container = document.getElementById("ourProductContainer");
-    const cardTemplate = document.getElementById("allProductCard");
+const container = document.getElementById("ourProductContainer");
+const cardTemplate = document.getElementById("allProductCard");
 
-    products.forEach(product => {
+const getAllProducts = async (category = "all") => {
+
+    let url = "https://fakestoreapi.com/products";
+
+    if (category !== "all") {
+        url = `https://fakestoreapi.com/products/category/${category}`;
+    }
+
+    const res = await fetch(url);
+    const data = await res.json();
+
+    if (!container || !cardTemplate) {
+        console.error("Container or Template not found!");
+        return;
+    }
+
+    container.innerHTML = "";
+
+    data.forEach(product => {
         const clone = cardTemplate.content.cloneNode(true);
         clone.querySelector(".productImage").src = product.image;
         clone.querySelector(".productRating").textContent = product.rating.rate;
@@ -76,6 +85,24 @@ const getAllProducts = ([...products]) => {
 
 }
 
+// 🔥 Category Filter
+document.querySelectorAll('input[name="category"]').forEach(btn => {
+    btn.addEventListener("change", (e) => {
+
+        // 🔥 Remove active class from all
+        document.querySelectorAll('input[name="category"]').forEach(b => {
+            b.classList.remove("btn-primary");
+        });
+
+        // 🔥 Add active class to selected
+        e.target.classList.add("btn-primary");
+
+        const selectedCategory = e.target.value;
+        getAllProducts(selectedCategory);
+    });
+});
+
+// set active
 const setActiveNav = () => {
     const current = window.location.pathname.split("/").pop();
     const links = document.querySelectorAll(".nav-link");
@@ -87,3 +114,11 @@ const setActiveNav = () => {
     });
 };
 
+
+document.addEventListener("DOMContentLoaded", () => {
+    loadProducts();
+    setActiveNav();
+    if (container) {
+        getAllProducts();
+    }
+});
