@@ -183,7 +183,7 @@
                 </div>
                 <div class="grid grid-cols-2 gap-2">
                   <button
-                    class="btn w-full flex justify-center items-center gap-2 text-slate-600"
+                    class="detailsBtn btn w-full flex justify-center items-center gap-2 text-slate-600"
                   >
                     <i class="fa-regular fa-eye"></i>
                     <span> Details </span>
@@ -291,6 +291,18 @@
         </nav>
       </footer>
     </footer>
+    <!-- Product Details Modal -->
+    <dialog id="productModal" class="modal">
+      <div class="modal-box max-w-4xl">
+        <div id="modalContent"></div>
+
+        <div class="modal-action">
+          <form method="dialog">
+            <button class="btn">Close</button>
+          </form>
+        </div>
+      </div>
+    </dialog>
     <script src="./scripts/index.js"></script>
   </body>
 </html>

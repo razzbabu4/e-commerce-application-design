@@ -45,6 +45,9 @@ const topProducts = (products) => {
         clone.querySelector(".productCategory").textContent = product.category;
         clone.querySelector(".productTitle").textContent = product.title;
         clone.querySelector(".productPrice").textContent = "$" + product.price;
+        clone.querySelector(".detailsBtn").addEventListener("click", () => {
+            showProductModal(product.id);
+        });
         trendingContainer.appendChild(clone);
     });
 
@@ -80,10 +83,40 @@ const getAllProducts = async (category = "all") => {
         clone.querySelector(".productCategory").textContent = product.category;
         clone.querySelector(".productTitle").textContent = product.title;
         clone.querySelector(".productPrice").textContent = "$" + product.price;
+
+        clone.querySelector(".detailsBtn").addEventListener("click", () => {
+            showProductModal(product?.id);
+        });
+
         container.appendChild(clone);
     });
 
 }
+// 🔥 Get Single Product for Modal
+const modal = document.getElementById("productModal");
+const modalContent = document.getElementById("modalContent");
+
+const showProductModal = async (id) => {
+
+    const res = await fetch(`https://fakestoreapi.com/products/${id}`);
+    const product = await res.json();
+
+    modalContent.innerHTML = `
+      <div class="lg:flex gap-6">
+        <img src="${product.image}" class="w-60 object-contain mx-auto"/>
+        
+        <div>
+          <h2 class="text-2xl font-bold mb-2">${product.title}</h2>
+          <p class="text-gray-500 mb-3">${product.description}</p>
+          <p class="text-xl font-bold text-blue-600 mb-2">$${product.price}</p>
+          <span class="badge badge-outline">${product.category}</span>
+        </div>
+      </div>
+    `;
+
+    modal.showModal();
+};
+
 
 // 🔥 Category Filter
 document.querySelectorAll('input[name="category"]').forEach(btn => {
