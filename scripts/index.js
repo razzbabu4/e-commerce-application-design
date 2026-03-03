@@ -1,3 +1,11 @@
+
+// Get all Products
+const container = document.getElementById("ourProductContainer");
+const cardTemplate = document.getElementById("allProductCard");
+// Get Single Product for Modal
+const modal = document.getElementById("productModal");
+const modalContent = document.getElementById("modalContent");
+
 const loadProducts = async () => {
     const loader = document.getElementById("loader");
 
@@ -53,8 +61,6 @@ const topProducts = (products) => {
 
 }
 
-const container = document.getElementById("ourProductContainer");
-const cardTemplate = document.getElementById("allProductCard");
 
 const getAllProducts = async (category = "all") => {
 
@@ -92,9 +98,6 @@ const getAllProducts = async (category = "all") => {
     });
 
 }
-// 🔥 Get Single Product for Modal
-const modal = document.getElementById("productModal");
-const modalContent = document.getElementById("modalContent");
 
 const showProductModal = async (id) => {
 
@@ -102,17 +105,50 @@ const showProductModal = async (id) => {
     const product = await res.json();
 
     modalContent.innerHTML = `
-      <div class="lg:flex gap-6">
-        <img src="${product.image}" class="w-60 object-contain mx-auto"/>
-        
-        <div>
-          <h2 class="text-2xl font-bold mb-2">${product.title}</h2>
-          <p class="text-gray-500 mb-3">${product.description}</p>
-          <p class="text-xl font-bold text-blue-600 mb-2">$${product.price}</p>
-          <span class="badge badge-outline">${product.category}</span>
+    <div class="grid lg:grid-cols-2 gap-6">
+
+      <div class="flex justify-center items-center">
+        <img src="${product.image}" class="w-64 object-contain"/>
+      </div>
+
+      <div>
+        <h2 class="text-2xl font-bold mb-3">
+          ${product.title}
+        </h2>
+
+        <p class="text-gray-500 mb-4">
+          ${product.description}
+        </p>
+
+        <div class="flex items-center gap-4 mb-3">
+          <p class="text-xl font-bold text-blue-600">
+            $${product.price}
+          </p>
+
+          <div class="flex items-center gap-1">
+            <span class="text-yellow-500 text-lg"><i
+                      class="fa-solid fa-star"
+                    ></i></span>
+            <span>${product.rating.rate}</span>
+            <span class="text-gray-400 text-sm">
+              (${product.rating.count} reviews)
+            </span>
+          </div>
+        </div>
+
+        <div class="flex gap-3 mt-5">
+          <button class="btn btn-primary">
+            Buy Now
+          </button>
+
+          <button class="btn btn-outline btn-primary">
+            Add to Cart
+          </button>
         </div>
       </div>
-    `;
+
+    </div>
+  `;
 
     modal.showModal();
 };
@@ -137,13 +173,25 @@ document.querySelectorAll('input[name="category"]').forEach(btn => {
 
 // set active
 const setActiveNav = () => {
-    const current = window.location.pathname.split("/").pop();
+
+    let current = window.location.pathname.split("/").pop();
+
+    if (current === "") {
+        current = "index.html";
+    }
+
     const links = document.querySelectorAll(".nav-link");
 
     links.forEach(link => {
-        if (link.getAttribute("href") === current) {
+
+        const linkHref = link.getAttribute("href");
+
+        if (linkHref === current) {
             link.classList.add("text-blue-600", "font-bold");
+        } else {
+            link.classList.remove("text-blue-600", "font-bold");
         }
+
     });
 };
 
