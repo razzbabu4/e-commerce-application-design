@@ -6,6 +6,40 @@ const cardTemplate = document.getElementById("allProductCard");
 const modal = document.getElementById("productModal");
 const modalContent = document.getElementById("modalContent");
 
+// Load cart from localStorage or empty array
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+const cartCount = document.getElementById("cartCount");
+
+// Update Navbar Count
+const updateCartCount = () => {
+    if (cartCount) {
+        cartCount.textContent = cart.length;
+    }
+};
+
+// Save Cart
+const saveCart = () => {
+    localStorage.setItem("cart", JSON.stringify(cart));
+    updateCartCount();
+};
+
+const addToCart = (product) => {
+
+    // Optional: prevent duplicate
+    const exists = cart.find(item => item.id === product.id);
+
+    if (!exists) {
+        cart.push(product);
+        saveCart();
+        alert("✅ Product Added to Cart");
+    } else {
+        alert("⚠️ Already in Cart");
+    }
+};
+
+
+
 const loadProducts = async () => {
     const loader = document.getElementById("loader");
 
@@ -56,6 +90,9 @@ const topProducts = (products) => {
         clone.querySelector(".detailsBtn").addEventListener("click", () => {
             showProductModal(product.id);
         });
+        clone.querySelector(".addCartBtn").addEventListener("click", () => {
+            addToCart(product);
+        });
         trendingContainer.appendChild(clone);
     });
 
@@ -92,6 +129,9 @@ const getAllProducts = async (category = "all") => {
 
         clone.querySelector(".detailsBtn").addEventListener("click", () => {
             showProductModal(product?.id);
+        });
+        clone.querySelector(".addCartBtn").addEventListener("click", () => {
+            addToCart(product);
         });
 
         container.appendChild(clone);
@@ -141,7 +181,7 @@ const showProductModal = async (id) => {
             Buy Now
           </button>
 
-          <button class="btn btn-outline btn-primary">
+          <button id="addCartBtn" class="btn btn-outline btn-primary">
             Add to Cart
           </button>
         </div>
@@ -150,20 +190,26 @@ const showProductModal = async (id) => {
     </div>
   `;
 
+    // Add to cart event
+    document.getElementById("addCartBtn")
+        .addEventListener("click", () => {
+            addToCart(product);
+        });
+
     modal.showModal();
 };
 
 
-// 🔥 Category Filter
+// Category Filter
 document.querySelectorAll('input[name="category"]').forEach(btn => {
     btn.addEventListener("change", (e) => {
 
-        // 🔥 Remove active class from all
+        // Remove active class from all
         document.querySelectorAll('input[name="category"]').forEach(b => {
             b.classList.remove("btn-primary");
         });
 
-        // 🔥 Add active class to selected
+        // Add active class to selected
         e.target.classList.add("btn-primary");
 
         const selectedCategory = e.target.value;
@@ -173,25 +219,21 @@ document.querySelectorAll('input[name="category"]').forEach(btn => {
 
 // set active
 const setActiveNav = () => {
-
-    let current = window.location.pathname.split("/").pop();
-
-    if (current === "") {
-        current = "index.html";
-    }
-
+    const currentPath = window.location.pathname; // "/", "/products.html", "/products"
     const links = document.querySelectorAll(".nav-link");
 
     links.forEach(link => {
+        const hrefPath = new URL(link.href).pathname;
 
-        const linkHref = link.getAttribute("href");
-
-        if (linkHref === current) {
+        // consider home if path is "/" or contains "index.html"
+        if (
+            currentPath === hrefPath ||
+            (currentPath === "/" && hrefPath.includes("index.html"))
+        ) {
             link.classList.add("text-blue-600", "font-bold");
         } else {
             link.classList.remove("text-blue-600", "font-bold");
         }
-
     });
 };
 
@@ -201,5 +243,6 @@ document.addEventListener("DOMContentLoaded", () => {
     setActiveNav();
     if (container) {
         getAllProducts();
-    }
+    };
+    updateCartCount();
 });

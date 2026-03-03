@@ -37,7 +37,7 @@
   <body>
     <header>
       <!--Navbar design-->
-      <div class="navbar bg-base-100 shadow-sm lg:px-60">
+      <div class="navbar bg-base-100 shadow-lg lg:px-60">
         <div class="navbar-start">
           <div class="dropdown">
             <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
@@ -81,7 +81,15 @@
           </ul>
         </div>
         <div class="navbar-end pr-5 lg:pr-0">
-          <i class="fa-brands fa-opencart"></i>
+          <a href="#" class="relative">
+            <i class="fa-solid fa-cart-shopping text-xl lg:text-2xl"></i>
+            <span
+              id="cartCount"
+              class="absolute -top-4 -right-4 bg-blue-700 text-white text-xs px-2 py-1 rounded-full border-2 lg:border-3 border-solid border-white"
+            >
+              0
+            </span>
+          </a>
         </div>
       </div>
     </header>
@@ -189,7 +197,7 @@
                     <span> Details </span>
                   </button>
                   <button
-                    class="btn btn-primary w-full flex justify-center items-center gap-2"
+                    class="btn btn-primary w-full flex justify-center items-center gap-2 addCartBtn"
                   >
                     <i class="fa-brands fa-opencart"></i><span>Add</span>
                   </button>
