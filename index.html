@@ -82,7 +82,7 @@
           </ul>
         </div>
         <div class="navbar-end pr-5 lg:pr-0">
-          <a href="#" class="relative">
+          <button id="openCartBtn" class="relative">
             <i class="fa-solid fa-cart-shopping text-xl lg:text-2xl"></i>
             <span
               id="cartCount"
@@ -90,7 +90,7 @@
             >
               0
             </span>
-          </a>
+          </button>
         </div>
       </div>
     </header>
@@ -198,6 +198,11 @@
           </div>
         </div>
       </section>
+
+      <!--Loader for fetching products-->
+      <span id="loader" class="flex justify-center skeleton skeleton-text my-4">
+        Product is Loading...</span
+      >
 
       <!--Trending Section-->
       <section class="py-16">
@@ -356,6 +361,27 @@
     <dialog id="productModal" class="modal">
       <div class="modal-box max-w-4xl">
         <div id="modalContent"></div>
+
+        <div class="modal-action">
+          <form method="dialog">
+            <button class="btn">Close</button>
+          </form>
+        </div>
+      </div>
+    </dialog>
+    <!--Cart sidebar modal-->
+    <dialog id="cartSidebar" class="modal modal-end">
+      <div class="modal-box w-96">
+        <h2 class="text-xl font-bold mb-4">Cart Summary</h2>
+
+        <div id="cartItems" class="space-y-3 max-h-80 overflow-y-auto"></div>
+
+        <div class="border-t pt-4 mt-4">
+          <div class="flex justify-between font-semibold">
+            <span>Total:</span>
+            <span>$<span id="cartTotal">0</span></span>
+          </div>
+        </div>
 
         <div class="modal-action">
           <form method="dialog">

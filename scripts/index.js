@@ -1,44 +1,93 @@
-
-// Get all Products
-const container = document.getElementById("ourProductContainer");
-const cardTemplate = document.getElementById("allProductCard");
-// Get Single Product for Modal
-const modal = document.getElementById("productModal");
-const modalContent = document.getElementById("modalContent");
-
-// Load cart from localStorage or empty array
+// Global Cart System
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
 const cartCount = document.getElementById("cartCount");
+const cartItemsContainer = document.getElementById("cartItems");
+const cartTotalEl = document.getElementById("cartTotal");
+const cartSidebar = document.getElementById("cartSidebar");
 
-// Update Navbar Count
 const updateCartCount = () => {
     if (cartCount) {
         cartCount.textContent = cart.length;
     }
-};
+}
 
-// Save Cart
 const saveCart = () => {
     localStorage.setItem("cart", JSON.stringify(cart));
     updateCartCount();
-};
+    renderCartSummary();
+}
 
 const addToCart = (product) => {
-
-    // Optional: prevent duplicate
     const exists = cart.find(item => item.id === product.id);
 
     if (!exists) {
         cart.push(product);
         saveCart();
-        alert("✅ Product Added to Cart");
-    } else {
-        alert("⚠️ Already in Cart");
     }
-};
+}
+
+const removeFromCart = (id) => {
+    cart = cart.filter(item => item.id !== id);
+    saveCart();
+}
+
+const calculateTotal = () => {
+    const total = cart.reduce((sum, item) => sum + item.price, 0);
+    if (cartTotalEl) {
+        cartTotalEl.textContent = total.toFixed(2);
+    }
+}
+
+const renderCartSummary = () => {
+
+    if (!cartItemsContainer) return;
+
+    cartItemsContainer.innerHTML = "";
+
+    if (cart.length === 0) {
+        cartItemsContainer.innerHTML =
+            `<p class="text-gray-500">Cart is empty</p>`;
+        if (cartTotalEl) cartTotalEl.textContent = "0";
+        return;
+    }
+
+    cart.forEach(item => {
+
+        const div = document.createElement("div");
+        div.className = "flex items-center gap-3 border p-2 rounded";
+
+        div.innerHTML = `
+      <img src="${item.image}" class="w-12 h-12 object-contain"/>
+      <div class="flex-1">
+        <p class="text-sm font-semibold line-clamp-1">${item.title}</p>
+        <p class="text-blue-600 text-sm">$${item.price}</p>
+      </div>
+      <button class="text-red-500 text-sm">✕</button>
+    `;
+
+        div.querySelector("button")
+            .addEventListener("click", () => removeFromCart(item.id));
+
+        cartItemsContainer.appendChild(div);
+    });
+
+    calculateTotal();
+}
+
+//  OPEN CART SIDEBAR
+document.getElementById("openCartBtn")?.addEventListener("click", () => {
+    renderCartSummary();
+    cartSidebar?.showModal();
+});
 
 
+// Get all Products
+const container = document.getElementById("ourProductContainer");
+const cardTemplate = document.getElementById("allProductCard");
+// Get Single Product Details for Modal
+const modal = document.getElementById("productModal");
+const modalContent = document.getElementById("modalContent");
 
 const loadProducts = async () => {
     const loader = document.getElementById("loader");
