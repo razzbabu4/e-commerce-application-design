@@ -82,7 +82,7 @@
           </ul>
         </div>
         <div class="navbar-end pr-5 lg:pr-0">
-          <button id="openCartBtn" class="relative">
+          <button id="openCartBtn" class="relative cursor-pointer">
             <i class="fa-solid fa-cart-shopping text-xl lg:text-2xl"></i>
             <span
               id="cartCount"
@@ -214,8 +214,8 @@
           id="trendingContainer"
           class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mx-6 lg:mx-60"
         >
+          <!--Product Card Template-->
           <template id="productCard">
-            <!-- Card 1 -->
             <div class="card bg-base-100 w-full shadow-sm">
               <figure class="p-5">
                 <img
@@ -369,6 +369,7 @@
         </div>
       </div>
     </dialog>
+
     <!--Cart sidebar modal-->
     <dialog id="cartSidebar" class="modal modal-end">
       <div class="modal-box w-96">
@@ -390,6 +391,14 @@
         </div>
       </div>
     </dialog>
+
+    <!-- Toast Container -->
+    <div
+      id="toastContainer"
+      class="fixed top-5 right-5 space-y-3 z-[9999] w-full max-w-xs pointer-events-none"
+    ></div>
+
+    <!--JavaScript-->
     <script src="./scripts/index.js" defer></script>
   </body>
 </html>
