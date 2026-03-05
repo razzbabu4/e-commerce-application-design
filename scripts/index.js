@@ -6,21 +6,23 @@ const cartItemsContainer = document.getElementById("cartItems");
 const cartTotalEl = document.getElementById("cartTotal");
 const cartSidebar = document.getElementById("cartSidebar");
 
+// Total Cart Numbers
 const updateCartCount = () => {
     if (cartCount) {
         cartCount.textContent = cart.length;
     }
 }
 
+// Save in local storage
 const saveCart = () => {
     localStorage.setItem("cart", JSON.stringify(cart));
     updateCartCount();
     renderCartSummary();
 }
 
+// Selected product add in cart
 const addToCart = (product) => {
     const exists = cart.find(item => item.id === product.id);
-
     if (exists) {
         showToast("Already in cart!", "warning");
     } else {
@@ -30,12 +32,14 @@ const addToCart = (product) => {
     }
 }
 
+// Remove product from cart
 const removeFromCart = (id) => {
     cart = cart.filter(item => item.id !== id);
     saveCart();
     showToast("Removed from cart", "error");
 }
 
+// Calculated Total Price
 const calculateTotal = () => {
     const total = cart.reduce((sum, item) => sum + item.price, 0);
     if (cartTotalEl) {
@@ -43,6 +47,7 @@ const calculateTotal = () => {
     }
 }
 
+// All Cart Summary
 const renderCartSummary = () => {
 
     if (!cartItemsContainer) return;
@@ -83,26 +88,72 @@ const renderCartSummary = () => {
 document.getElementById("openCartBtn")?.addEventListener("click", () => {
     renderCartSummary();
     cartSidebar?.showModal();
-    const toastPosition = document.querySelectorAll(".toast");
-
-    const toastContainer = document.getElementById("toastContainer");
-
-    if (cartSidebar?.open) {
-        toastContainer.classList.remove("right-5");
-        toastContainer.classList.add("left-5");
-    } else {
-        toastContainer.classList.remove("left-5");
-        toastContainer.classList.add("right-5");
-    }
 });
+
+// Custom Toast Function
+const showToast = (message, type = "success") => {
+    const toastContainer = cartSidebar && cartSidebar.open
+        ? document.getElementById("modalToast")
+        : document.getElementById("globalToast");
+
+    let bgColor = "bg-green-500 shadow-green-100";
+    let iconColor = "fill-green-600";
+
+    if (type === "error") {
+        bgColor = "bg-red-500 shadow-red-100";
+        iconColor = "fill-red-600";
+    }
+
+    if (type === "warning") {
+        bgColor = "bg-yellow-500 shadow-yellow-100";
+        iconColor = "fill-yellow-600";
+    }
+
+    const toast = document.createElement("div");
+
+    toast.innerHTML = `
+      <div class="${bgColor} text-white font-semibold tracking-wide flex items-center w-full min-w-xs max-w-lg p-4 rounded-md shadow-md"
+           role="alert">
+  
+        <div class="shrink-0 mr-3">
+          <svg xmlns="http://www.w3.org/2000/svg"
+               class="w-5 h-5 fill-white inline"
+               viewBox="0 0 512 512">
+            <ellipse cx="256" cy="256" fill="#fff" rx="256" ry="255.832" />
+            <path class="${iconColor}"
+              d="m235.472 392.08-121.04-94.296 34.416-44.168
+                 74.328 57.904 122.672-177.016
+                 46.032 31.888z" />
+          </svg>
+        </div>
+  
+        <span class="text-[15px] mr-3 flex-1">${message}</span>
+  
+        <svg xmlns="http://www.w3.org/2000/svg"
+             class="w-3 cursor-pointer shrink-0 fill-white ml-auto closeToast"
+             viewBox="0 0 320.591 320.591">
+          <path d="M30.391 318.583a30.37 30.37 0 0 1-21.56-7.288c-11.774-11.844-11.774-30.973 0-42.817L266.643 10.665c12.246-11.459 31.462-10.822 42.921 1.424 10.362 11.074 10.966 28.095 1.414 39.875L51.647 311.295a30.366 30.366 0 0 1-21.256 7.288z"/>
+          <path d="M287.9 318.583a30.37 30.37 0 0 1-21.257-8.806L8.83 51.963C-2.078 39.225-.595 20.055 12.143 9.146c11.369-9.736 28.136-9.736 39.504 0l259.331 257.813c12.243 11.462 12.876 30.679 1.414 42.922-.456.487-.927.958-1.414 1.414a30.368 30.368 0 0 1-23.078 7.288z"/>
+        </svg>
+      </div>
+    `;
+
+    toastContainer.appendChild(toast);
+
+    // Close Button
+    toast.querySelector(".closeToast")
+        .addEventListener("click", () => toast.remove());
+
+    // Auto Remove after 3 seconds
+    setTimeout(() => {
+        toast.remove();
+    }, 3000);
+};
 
 
 // Get all Products
 const container = document.getElementById("ourProductContainer");
 const cardTemplate = document.getElementById("allProductCard");
-// Get Single Product Details for Modal
-const modal = document.getElementById("productModal");
-const modalContent = document.getElementById("modalContent");
 
 const loadProducts = async () => {
     const loader = document.getElementById("loader");
@@ -162,7 +213,6 @@ const topProducts = (products) => {
 
 }
 
-
 const getAllProducts = async (category = "all") => {
 
     let url = "https://fakestoreapi.com/products";
@@ -202,6 +252,10 @@ const getAllProducts = async (category = "all") => {
     });
 
 }
+
+// Get Single Product Details for Modal
+const modal = document.getElementById("productModal");
+const modalContent = document.getElementById("modalContent");
 
 const showProductModal = async (id) => {
 
@@ -264,7 +318,7 @@ const showProductModal = async (id) => {
 };
 
 
-// Category Filter
+// Category Filter Button
 document.querySelectorAll('input[name="category"]').forEach(btn => {
     btn.addEventListener("change", (e) => {
 
@@ -300,66 +354,6 @@ const setActiveNav = () => {
         }
     });
 };
-
-// Custom Toast Function
-const showToast = (message, type = "success") => {
-
-    const container = document.getElementById("toastContainer");
-
-    let bgColor = "bg-green-500 shadow-green-100";
-    let iconColor = "fill-green-600";
-
-    if (type === "error") {
-        bgColor = "bg-red-500 shadow-red-100";
-        iconColor = "fill-red-600";
-    }
-
-    if (type === "warning") {
-        bgColor = "bg-yellow-500 shadow-yellow-100";
-        iconColor = "fill-yellow-600";
-    }
-
-    const toast = document.createElement("div");
-
-    toast.innerHTML = `
-      <div class="${bgColor} text-white font-semibold tracking-wide flex items-center w-full min-w-xs max-w-lg p-4 rounded-md shadow-md"
-           role="alert">
-  
-        <div class="shrink-0 mr-3">
-          <svg xmlns="http://www.w3.org/2000/svg"
-               class="w-5 h-5 fill-white inline"
-               viewBox="0 0 512 512">
-            <ellipse cx="256" cy="256" fill="#fff" rx="256" ry="255.832" />
-            <path class="${iconColor}"
-              d="m235.472 392.08-121.04-94.296 34.416-44.168
-                 74.328 57.904 122.672-177.016
-                 46.032 31.888z" />
-          </svg>
-        </div>
-  
-        <span class="text-[15px] mr-3 flex-1">${message}</span>
-  
-        <svg xmlns="http://www.w3.org/2000/svg"
-             class="w-3 cursor-pointer shrink-0 fill-white ml-auto closeToast"
-             viewBox="0 0 320.591 320.591">
-          <path d="M30.391 318.583a30.37 30.37 0 0 1-21.56-7.288c-11.774-11.844-11.774-30.973 0-42.817L266.643 10.665c12.246-11.459 31.462-10.822 42.921 1.424 10.362 11.074 10.966 28.095 1.414 39.875L51.647 311.295a30.366 30.366 0 0 1-21.256 7.288z"/>
-          <path d="M287.9 318.583a30.37 30.37 0 0 1-21.257-8.806L8.83 51.963C-2.078 39.225-.595 20.055 12.143 9.146c11.369-9.736 28.136-9.736 39.504 0l259.331 257.813c12.243 11.462 12.876 30.679 1.414 42.922-.456.487-.927.958-1.414 1.414a30.368 30.368 0 0 1-23.078 7.288z"/>
-        </svg>
-      </div>
-    `;
-
-    container.appendChild(toast);
-
-    // Close Button
-    toast.querySelector(".closeToast")
-        .addEventListener("click", () => toast.remove());
-
-    // Auto Remove after 3 seconds
-    setTimeout(() => {
-        toast.remove();
-    }, 3000);
-};
-
 
 document.addEventListener("DOMContentLoaded", () => {
     loadProducts();

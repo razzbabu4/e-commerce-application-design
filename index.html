@@ -216,7 +216,7 @@
         >
           <!--Product Card Template-->
           <template id="productCard">
-            <div class="card bg-base-100 w-full shadow-sm">
+            <div class="card bg-base-100 w-full shadow-xl">
               <figure class="p-5">
                 <img
                   class="productImage h-56"
@@ -357,6 +357,7 @@
         </nav>
       </footer>
     </footer>
+
     <!-- Product Details Modal -->
     <dialog id="productModal" class="modal">
       <div class="modal-box max-w-4xl">
@@ -370,8 +371,20 @@
       </div>
     </dialog>
 
-    <!--Cart sidebar modal-->
+    <!-- Global Toast -->
+    <div
+      id="globalToast"
+      class="fixed top-5 right-5 space-y-3 z-[9999] w-full max-w-md"
+    ></div>
+
+    <!-- Cart sidebar modal -->
     <dialog id="cartSidebar" class="modal modal-end">
+      <!-- Modal Toast -->
+      <div
+        id="modalToast"
+        class="fixed top-5 left-5 space-y-3 z-[9999] w-full max-w-md"
+      ></div>
+
       <div class="modal-box w-96">
         <h2 class="text-xl font-bold mb-4">Cart Summary</h2>
 
@@ -391,12 +404,6 @@
         </div>
       </div>
     </dialog>
-
-    <!-- Toast Container -->
-    <div
-      id="toastContainer"
-      class="fixed top-5 right-5 space-y-3 z-[9999] w-full max-w-xs pointer-events-none"
-    ></div>
 
     <!--JavaScript-->
     <script src="./scripts/index.js" defer></script>
