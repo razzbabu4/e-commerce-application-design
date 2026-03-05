@@ -355,6 +355,26 @@ const setActiveNav = () => {
     });
 };
 
+const navbar = document.getElementById("navBar");
+
+window.addEventListener("scroll", () => {
+
+    const scrollPosition = window.scrollY;
+    const pageHeight = document.body.scrollHeight - window.innerHeight;
+    const scrollPercent = (scrollPosition / pageHeight) * 100;
+
+    if (scrollPercent > 20) {
+        navbar.classList.add("fixed", "top-0", "left-0", "z-50", "animate-slideDown");
+
+        document.body.style.paddingTop = navbar.offsetHeight + "px";
+    } else {
+        navbar.classList.remove("fixed", "top-0", "left-0", "z-50");
+
+        document.body.style.paddingTop = "0px";
+    }
+
+});
+
 document.addEventListener("DOMContentLoaded", () => {
     loadProducts();
     setActiveNav();
