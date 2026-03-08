@@ -92,9 +92,14 @@ document.getElementById("openCartBtn")?.addEventListener("click", () => {
 
 // Custom Toast Function
 const showToast = (message, type = "success") => {
-    const toastContainer = cartSidebar && cartSidebar.open
-        ? document.getElementById("modalToast")
-        : document.getElementById("globalToast");
+    let toastContainer;
+    if (cartSidebar && cartSidebar.open) {
+        toastContainer = document.getElementById("cartToast");
+    } else if (modal && modal?.open) {
+        toastContainer = document.getElementById("modalToast");
+    } else {
+        toastContainer = document.getElementById("globalToast");
+    }
 
     let bgColor = "bg-green-500 shadow-green-100";
     let iconColor = "fill-green-600";
